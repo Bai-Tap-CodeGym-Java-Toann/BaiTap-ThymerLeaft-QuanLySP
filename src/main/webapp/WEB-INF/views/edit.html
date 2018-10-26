@@ -1,40 +1,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
-<!--<link rel="stylesheet" th:href="@{resources/css/view.css}">-->
 <div>
-    <div>
-        <!--<img th:src="@{product.getPicture()}" class="img-circle img-responsive"-->
-        <!--align="center" width="150" height="150">-->
+    <div align="center">
+        <img th:src="@{/{pic}(pic=${product.getPicture()})}" class="img-circle img-responsive"
+        align="center" width="150" height="150">
     </div>
     <br>
-    <h6 align="center">Code: ${product.getCode()}</h6>
-    <form class="form-group" th:action="@{/products/edit/{code}(code=${product.getCode()})}" method="post" id="form" th:object="editor">
+    <h6 align="center">Code: <th:block th:text="${product.getCode()}"></th:block></h6>
+    <form class="form-group" th:action="@{/products/edit/{code}(code=${product.getCode()})}" method="post" id="form">
         <br>
         <h6>Product Name</h6>
-        <input class="form-control" type="text" th:field="*{name}" th:placeholder="${product.getName()}">
+        <input class="form-control" name="name" type="text" th:placeholder="${product.getName()}">
         <h6>Product Price</h6>
-        <input class="form-control" type="text" th:field="*{price}" th:placeholder="${product.getPrice()}">
+        <input class="form-control" name="price" type="text" th:placeholder="${product.getPrice()}">
         <h6>Origin of Product</h6>
-        <input class="form-control" type="text" th:field="*{origin}" th:placeholder="${product.getOrigin()}">
+        <input class="form-control" name="origin" type="text" th:placeholder="${product.getOrigin()}">
         <h6>Picture Link </h6>
-        <input class="form-control" type="text" th:field="*{picture}" th:placeholder="${product.getPicture()}">
-        <input type="hidden" name="action" value="edit">
-        <input type="hidden" name="code" value="${product.getCode()}">
-        <h6 style="color: red"><%=error%>
-        </h6>
-        <button type="submit"
+        <input class="form-control" name="picture" type="text" th:placeholder="${product.getPicture()}">
+        <!--/*@thymesVar id="error" type="java.lang.String"*/-->
+        <h6 style="color: red" align="center" th:text="${error}"></h6>
+        <button type="button" onclick="checkAndSend()"
                 class="btn btn-danger">Delete
         </button>
         <a href="/products"
            class="btn btn-secondary">Cancel</a>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit"
+                class="btn btn-primary">Update
+        </button>
     </form>
+    <input id="code" type="hidden" th:value="${product.getCode()}">
+    <input id="name" type="hidden" th:value="${product.getName()}">
 </div>
 <script>
     function checkAndSend() {
-        if (confirm("Delete: ${product.getCode()} - ${product.getName()} ?")) {
-            window.location.href = "/products?action=delete&code=${product.getCode()}";
+        let name = document.getElementById("name").value;
+        let code = document.getElementById("code").value;
+
+        if (confirm("Delete: " + code + " - " + name + " ?")) {
+            window.location.href = "/products/delete/" + code;
         }
     }
 </script>
