@@ -1,7 +1,7 @@
 
-package toandz.service;
+package lanaDrahrepus.service;
 
-import toandz.model.Product;
+import lanaDrahrepus.model.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,45 +1,27 @@
-
-<html>
-<head>
-    <title>view</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <style>
-        div {
-            width: 50%;
-            margin: auto;
-            padding-top: 50px;
-        }
-
-        h1 {
-            font-size: 3em;
-            text-align: center;
-        }
-    </style>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
 </head>
 <body>
 <div align="center">
-    <img src="${product.getPicture()}" class="img-circle img-responsive"
+    <img th:src="@{/{pic}(pic=${product.getPicture()})}" class="img-circle img-responsive"
          align="center" width="150" height="150">
 </div>
-<%
-    String log = "";
-    String button = "Return";
-    if (request.getAttribute("log") != null) {
-        log = (String) request.getAttribute("log");
-        button ="Ok";
-    }
-%>
 <br>
 <div>
+    <!--/*@thymesVar id="product" type="lanaDrahrepus.model.Product"*/-->
     <ul class="list-group-flush">
-        <li class="list-group-item"><b>Mã sản phẩm  : </b> ${product.getCode()}</li>
-        <li class="list-group-item"><b>Tên sản phẩm : </b> ${product.getName()}</li>
-        <li class="list-group-item"><b>Giá thành    : </b> ${product.getPrice()}</li>
-        <li class="list-group-item"><b>Nơi sản xuất : </b> ${product.getOrigin()}</li>
+        <li class="list-group-item"><b>Product Code: </b>
+            <p th:text="${product.getCode()}"></p>
+        </li>
+        <li class="list-group-item"><b>Product Name : </b>
+            <p th:text=" ${product.getName()}"></p></li>
+        <li class="list-group-item"><b>Product Price : </b>
+            <p th:text="${product.getPrice()}"></p></li>
+        <li class="list-group-item"><b>Origin of Product : </b>
+            <p th:text=" ${product.getOrigin()}"></p></li>
     </ul>
 </div>
-<h6 align="center" style="color: green"><%=log%>
+<h6 align="center" style="color: green"></h6>
 <div style="text-align: center">
     <form action="/products" method="post">
         <input type="hidden" name="action">

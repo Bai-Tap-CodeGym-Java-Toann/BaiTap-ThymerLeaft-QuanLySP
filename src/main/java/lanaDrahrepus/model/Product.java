@@ -1,4 +1,4 @@
-package toandz.model;
+package lanaDrahrepus.model;
 
 public class Product {
     int code;
@@ -10,7 +10,7 @@ public class Product {
         this.picture = picture;
     }
 
-    String picture = "img/defaultProduct.jpg";
+    String picture = "resources/img/defaultProduct.png";
 
     public int getCode() {
         return code;
